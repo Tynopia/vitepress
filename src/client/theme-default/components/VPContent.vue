@@ -1,13 +1,28 @@
 <script setup lang="ts">
+import { createVNode, render, watchEffect, type Component } from 'vue'
 import NotFound from '../NotFound.vue'
 import { useData } from '../composables/data'
 import { useSidebar } from '../composables/sidebar'
 import VPDoc from './VPDoc.vue'
 import VPHome from './VPHome.vue'
 import VPPage from './VPPage.vue'
+import { CustomTitle } from '../../app/components/CustomTitle'
 
 const { page, frontmatter } = useData()
 const { hasSidebar } = useSidebar()
+
+function renderToString(component: Component) {
+  const vm = createVNode(component, {
+    content: page.value.title
+  })
+  const container = document.createElement('div')
+  render(vm, container)
+  return container.children[0].innerHTML
+}
+
+watchEffect(function () {
+  document.title = renderToString(CustomTitle)
+})
 </script>
 
 <template>

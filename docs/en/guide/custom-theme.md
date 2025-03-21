@@ -1,4 +1,4 @@
-# Using a Custom Theme
+# Using {{ 2 + 3 }}
 
 ## Theme Resolving
 
